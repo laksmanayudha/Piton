@@ -14,17 +14,19 @@ def delta (state, a, transitions):
 
 def deltaTopi (state, str, transitions):
 
-    # memecah string
-    # a = char terakhir
-    # x = sisa string
-    x = str[:-1]
-    a = str[-1]
-
+    # cek epsilon
     # lakukan delta topi hingga x sama dengan epsilon, jika belum lakukan rekursif
     # fungsi deltaTopi() mengembalikan state yang dipilih oleh fungsi delta()
     # kemudian update nilai dari state,  yang selanjutnya dijadikan parameter untuk menentukan state selanjutnya oleh fungsi delta()
-    if x != '':
+    if str != '':
+        # memecah string
+        # a = char terakhir
+        # x = sisa string
+        x = str[:-1]
+        a = str[-1]
         state = deltaTopi(state, x, transitions)
+    else:
+        return state
 
     # memanggil fungsi delta untuk memilih state sesuai transitionsnya 
     # lalu kembalikan nilai state tersebut ke fungsi yang memanggilnya
