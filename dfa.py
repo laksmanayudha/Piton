@@ -1,5 +1,8 @@
 def dfa (state, str, finalState, transitions):
+    
     hasil = deltaTopi(state, str, transitions)
+
+    # cek apabila state hasil termasuk ke dalam final state
     if hasil in finalState:
         return [True, hasil]
     else:
@@ -32,15 +35,27 @@ def deltaTopi (state, str, transitions):
     # lalu kembalikan nilai state tersebut ke fungsi yang memanggilnya
     return delta(state, a, transitions)
 
+def isStringValid(alphabet, str):
+    for char in str:
+        if char not in alphabet:
+            return False
+    
+    return True
+
 def input_string():
-    string = input('ketik string :')
-    print('String anda adalah ', string)
-    return string
+    alphabet = ['1', '0']
+    while(True):
+        string = input('ketik string (Alphabet = {1, 0}) :')
+        print('String anda adalah ', string)
+        if isStringValid(alphabet, string):
+            return string
+        else:
+            print('String yang anda masukan tidak sesuai dengan alphabet')
 
 moduls = [
     {
-        'namaModul':'L1',
-        'deskripsi':'L1 adalah himpunan semua string yang mengandung substring 101',
+        'modulName':'L1',
+        'description':'L1 adalah himpunan semua string yang mengandung substring 101',
         'initialState' : 'q0',
         'finalState' : ['q3'],
         'allState' : ['q0', 'q1', 'q2', 'q3'],
@@ -64,8 +79,8 @@ moduls = [
         }
     },
     {
-        'namaModul':'L2',
-        'deskripsi':'L2 adalah himpunan semua string yang mengandung prefiks 101',
+        'modulName':'L2',
+        'description':'L2 adalah himpunan semua string yang mengandung prefiks 101',
         'initialState' : 'q0',
         'finalState' : ['q4'],
         'allState' : ['q0', 'q1', 'q2', 'q3', 'q4'],
@@ -93,12 +108,12 @@ moduls = [
         }
     },
     {
-        'namaModul':'Input Lagi',
-        'deskripsi':'input string baru!'
+        'modulName':'Input Lagi',
+        'description':'input string baru!'
     },
     {
-        'namaModul':'Selesai',
-        'deskripsi':'Program telah berakhir..'
+        'modulName':'Selesai',
+        'description':'Program telah berakhir..'
     }
     
 ]
@@ -110,23 +125,23 @@ string = input_string()
 #menu
 while(lanjut):
     #print menu
-    print('\nPilih Modul')
+    print('\nPilih Modul :')
     for i, v in enumerate(moduls):
-        print(i+1, v['namaModul'], sep='. ')
+        print(i+1, v['modulName'], sep='. ')
         
     #pilih menu
     menu = int(input('Pilih Menu : '))
     
     if menu <= 0 or menu > len(moduls):
         print('Menu tidak tersedia. Mohon input menu kembali..')
-    elif moduls[menu-1]['namaModul'] == 'Input Lagi':
+    elif moduls[menu-1]['modulName'] == 'Input Lagi':
         string = input_string()
-    elif moduls[menu-1]['namaModul'] == 'Selesai':
-        print(moduls[menu-1]['deskripsi'])
+    elif moduls[menu-1]['modulName'] == 'Selesai':
+        print(moduls[menu-1]['description'])
         lanjut = False
     else:
-        #deskripsi
-        print(moduls[menu-1]['deskripsi'])
+        #print deskripsi modul
+        print(moduls[menu-1]['description'])
         
         # memulai dfa
         initialState = moduls[menu-1]['initialState']
