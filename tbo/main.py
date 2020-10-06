@@ -1,5 +1,7 @@
+# import modul dfa yang merupakan kumpulan fungsi dari mesin dfa
 from dfa import dfa_result, isStringValid, input_string
 
+# varibel data merupakan kumpulan informasi dari menu yang digunakan oleh mesin dfa
 data = [
     {
         'name':'L1',
@@ -112,9 +114,10 @@ while(lanjut):
     for i, v in enumerate(data):
         print(i+1, v['description'], sep='. ')
         
-    #pilih menu
+    # memilih menu
     menu = int(input('Pilih Menu : '))
     
+    # eksekusi pilihan menu
     if menu > 0 and menu <= len(data):
         if data[menu-1]['name'] == 'Input Lagi':
             string = input_string()
@@ -126,11 +129,15 @@ while(lanjut):
             print('\n')
             print(data[menu-1]['description'])
             
-            # memulai dfa
+            # inisiasi initial state, final state, dan transitions
             initialState = data[menu-1]['initialState']
             finalState = data[menu-1]['finalState']
             transitions = data[menu-1]['transitions']
+
+            # cari hasil dfa
             isAccepted, hasil = dfa_result(initialState, string, finalState, transitions)
+
+            # tampilkan hasil dfa
             if isAccepted:
                 print('string diterima dengan final state adalah ',hasil)
             else:
