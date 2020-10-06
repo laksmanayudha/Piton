@@ -110,7 +110,8 @@ string = input_string()
 #menu
 while(lanjut):
     #print menu
-    print('\nPilih Modul :')
+    print('\nString :', string)
+    print('Pilih Modul :')
     for i, v in enumerate(data):
         print(i+1, v['description'], sep='. ')
         
