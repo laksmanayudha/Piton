@@ -140,7 +140,7 @@ string = input_string()
 while(lanjut):
     #print menu
     print('\nString :', string)
-    print('Pilih Modul :')
+    print('Pilih Menu :')
     for i, v in enumerate(data):
         print(i+1, v['description'], sep='. ')
         
