@@ -1,5 +1,5 @@
 # import modul dfa yang merupakan kumpulan fungsi dari mesin dfa
-from dfa import dfa_result, isStringValid, input_string
+from dfa import Dfa, input_string, isStringValid
 
 # varibel data merupakan kumpulan informasi dari menu yang digunakan oleh mesin dfa
 data = [
@@ -58,6 +58,35 @@ data = [
         }
     },
     {
+        'name':'L3',
+        'description':'L3 adalah himpunan semua string yang mengandung sufiks 101',
+        'initialState' : 'q0',
+        'finalState' : ['q3'],
+        'allState' : ['q0', 'q1', 'q2', 'q3', 'q4'],
+        'transitions':{
+            'q0':{
+                '0':'q0',
+                '1':'q1'
+            },
+            'q1':{
+                '0':'q2',
+                '1':'q1'
+            },
+            'q2':{
+                '0':'q0',
+                '1':'q3'
+            },
+            'q3':{
+                '0':'q4',
+                '1':'q1'
+            },
+            'q4':{
+                '0':'q0',
+                '1':'q3'
+            }
+        }
+    },
+    {
         'name':'L4',
         'description':'L4 adalah himpunan semua string yang mengandung jumlah simbol 0 genap',
         'initialState' : 'q0',
@@ -111,7 +140,7 @@ string = input_string()
 while(lanjut):
     #print menu
     print('\nString :', string)
-    print('Pilih Modul :')
+    print('Pilih Menu :')
     for i, v in enumerate(data):
         print(i+1, v['description'], sep='. ')
         
@@ -135,8 +164,11 @@ while(lanjut):
             finalState = data[menu-1]['finalState']
             transitions = data[menu-1]['transitions']
 
+            # buat objek dfa
+            dfa = Dfa(initialState, string, finalState, transitions)
+
             # cari hasil dfa
-            isAccepted, hasil = dfa_result(initialState, string, finalState, transitions)
+            isAccepted, hasil = dfa.result()
 
             # tampilkan hasil dfa
             if isAccepted:
